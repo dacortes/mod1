@@ -5,7 +5,6 @@
 RMV = rm -rf
 CPP = g++
 CFLAGS = -Wall -Werror -Wextra -g -pedantic -std=c++11 -fsanitize=address
-VULKAN_FLAGS = -lvulkan -lglfw
 NAME = mod1
 TOTAL_FILES = $(words $(SOURCES))
 
@@ -26,7 +25,7 @@ DEPENDENCIES_TEST = $(addprefix $(DIRECTORY_TEST_DEP)/, $(SOURCES_TEST:.cpp:.d))
 
 INCLUDES = $(addprefix -I, include)
 SOURCES_TEST = test_main.cpp #test_init.cpp #test_main.cpp
-SOURCES = main.cpp win/VulkanWin.cpp
+SOURCES = main.cpp
 
 ################################################################################
 #                               BOLD COLORS                                    #
@@ -60,8 +59,18 @@ all: dir $(NAME)
 test: DIRS_TO_CREATE = $(DIRECTORY_TEST_OBJ) $(DIRECTORY_TEST_DEP)
 test: dir $(NAME)_test
 
+minilib:
+	@if [ ! -d "./lib/minilibX/.git" ]; then \
+        git clone git@github.com:codam-coding-college/MLX42.git ./lib/minilibX; \
+        git submodule update --init --recursive; \
+    elif [ -d "./lib/minilibX/.git" ]; then \
+        echo "$(YELLOW)$(ligth)[ Warnig ]$(END) libft: already exists and is a valid git repository."; \
+    else \
+        echo "$(YELLOW)$(ligth)[ Warnig ]$(END) libft: already exists and is not an empty directory."; \
+    fi
+
 $(NAME): $(OBJECTS)
-	$(CPP) $(CFLAGS) $(INCLUDES) $(OBJECTS) -o $(NAME) $(VULKAN_FLAGS)
+	$(CPP) $(CFLAGS) $(INCLUDES) $(OBJECTS) -o $(NAME)
 	@echo "\n✅ ==== $(BLUE)$(ligth)Project $(NAME) compiled!$(END) ==== ✅"
 
 $(DIRECTORY_OBJ)/%.o:$(DIRECTORI_SOURCE)/%.cpp
@@ -70,7 +79,7 @@ $(DIRECTORY_OBJ)/%.o:$(DIRECTORI_SOURCE)/%.cpp
 	@$(call progress,$<)
 
 $(NAME)_test: $(OBJECTS_TEST)
-	$(CPP) $(CFLAGS) $(INCLUDES) $(OBJECTS_TEST) -o $(NAME)_test $(VULKAN_FLAGS)
+	$(CPP) $(CFLAGS) $(INCLUDES) $(OBJECTS_TEST) -o $(NAME)_test
 	@echo "\n✅ ==== $(BLUE)$(ligth)Project test compiled!$(END) ==== ✅"
 
 $(DIRECTORY_TEST_OBJ)/%.o:$(DIRECTORI_TEST)/%.cpp

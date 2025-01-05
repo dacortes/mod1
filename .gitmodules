@@ -1,0 +1,3 @@
+[submodule "lib/minilibX"]
+	path = lib/minilibX
+	url = git@github.com:codam-coding-college/MLX42.git
