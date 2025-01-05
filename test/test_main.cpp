@@ -76,6 +76,11 @@ int main() {
 
     try {
         app.run();
+        VkExtent3D foo;
+
+        foo.depth = 10;
+        foo.height = 10;
+        foo.width = 10;
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;

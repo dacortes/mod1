@@ -23,8 +23,8 @@ DEPENDENCIES = $(addprefix $(DIRECTORY_DEP)/, $(SOURCES:.cpp=.d))
 OBJECTS_TEST = $(addprefix $(DIRECTORY_TEST_OBJ)/, $(SOURCES_TEST:.cpp=.o))
 DEPENDENCIES_TEST = $(addprefix $(DIRECTORY_TEST_DEP)/, $(SOURCES_TEST:.cpp:.d))
 
-INCLUDES = $(addprefix -I, inc)
-SOURCES_TEST = test_main.cpp
+INCLUDES = $(addprefix -I, include)
+SOURCES_TEST = test_main.cpp #test_init.cpp #test_main.cpp
 SOURCES = main.cpp
 
 ################################################################################
