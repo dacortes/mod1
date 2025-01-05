@@ -15,6 +15,7 @@ DIRECTORY_TEST_OBJ = test_obj
 DIRECTORY_TEST_DEP = test_dep
 
 DIRECTORI_SOURCE = src
+SUB_DIRECTORIES = win
 DIRECTORI_TEST = test
 
 OBJECTS = $(addprefix $(DIRECTORY_OBJ)/, $(SOURCES:.cpp=.o))
@@ -25,7 +26,7 @@ DEPENDENCIES_TEST = $(addprefix $(DIRECTORY_TEST_DEP)/, $(SOURCES_TEST:.cpp:.d))
 
 INCLUDES = $(addprefix -I, include)
 SOURCES_TEST = test_main.cpp #test_init.cpp #test_main.cpp
-SOURCES = main.cpp
+SOURCES = main.cpp win/VulkanWin.cpp
 
 ################################################################################
 #                               BOLD COLORS                                    #
@@ -81,6 +82,7 @@ dir:
 	@for DIR in $(DIRS_TO_CREATE); do \
 		if [ ! -d $$DIR ]; then \
 			mkdir -p $$DIR; \
+			$(foreach SUB, $(SUB_DIRECTORIES), mkdir -p $$DIR/$(SUB_DIRECTORIES)); \
 			printf "$(BLUE)$(ligth)Creating directory:$(END) $$DIR\n"; \
 		else \
 			printf "$(BLUE)$(ligth)Directory already exists:$(END) $$DIR\n"; \

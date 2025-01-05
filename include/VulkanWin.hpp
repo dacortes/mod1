@@ -10,21 +10,21 @@
 class VulkanWin
 {
 	public:
-		VulkanWin(const char *AppName, const uint32_t widthWin, const uint32_t heightWin);
+		VulkanWin(const char *titleWin, const char *AppName, const uint32_t widthWin, const uint32_t heightWin);
 		~VulkanWin(void);
-
-		run(void);
+	
+		void run(void);
 	private:
 		/* Variables */
 		GLFWwindow *window;
-		VkInstance	VkInstance;
+		VkInstance	instance;
+		const char *titleWin;
 		const char	*AppName;
 		const uint32_t widthWin;
 		const uint32_t heightWin;
 
 		/* Funtions */
 		void initWindow(void);
-		void initVulkan(void);
 
 		void createInstance(void);
 		void mainLoop(void);
