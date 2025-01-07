@@ -1,6 +1,8 @@
+#include <MlxWindow.hpp>
 #include <utils.tpp>
 
 int main(void)
-{   
-    return (EXIT_SUCCESS);
+{
+	MlxWindow app("foo", 500, 500);
+	return (EXIT_SUCCESS);
 }

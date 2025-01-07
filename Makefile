@@ -26,7 +26,7 @@ DEPENDENCIES_TEST = $(addprefix $(DIRECTORY_TEST_DEP)/, $(SOURCES_TEST:.cpp:.d))
 
 INCLUDES = $(addprefix -I, include)
 SOURCES_TEST = test_main.cpp #test_init.cpp #test_main.cpp
-SOURCES = main.cpp
+SOURCES = win/MlxWindow.cpp main.cpp
 
 PATH_LIB_MINILIBX = ./lib/minilibX
 DIR_BUILD_MINILIBX = build
@@ -118,6 +118,9 @@ clean:
 			printf "$(ligth)The directory does not exist:$(END) $$DIR\n"; \
 		fi \
 	done
+	$(RMV) $(DIR_BUILD_MINILIBX)
+	$(RMV) $(PATH_LIB_MINILIBX)/*
+	$(RMV) $(PATH_LIB_MINILIBX)/.git*
 	echo "✅ ==== $(PURPLE)$(ligth)$(NAME) object files cleaned!$(END) ==== ✅"
 
 fclean: clean
