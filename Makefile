@@ -122,6 +122,7 @@ clean:
 
 fclean: clean
 	$(RMV) $(NAME) $(NAME)_test
+	$(RMV) $(PATH_LIB_MINILIBX)
 	$(RMV) $(DIR_BUILD_MINILIBX)
 	echo "✅ ==== $(PURPLE)$(ligth)$(NAME) executable files and name cleaned!$(END) ==== ✅"
 
