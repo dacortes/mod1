@@ -5,6 +5,7 @@
 RMV = rm -rf
 CPP = g++
 CFLAGS = -Wall -Werror -Wextra -g -pedantic -std=c++11 -fsanitize=address
+LIB_FLAGS = -ldl -lglfw -pthread -lm
 NAME = mod1
 TOTAL_FILES = $(words $(SOURCES))
 
@@ -26,6 +27,11 @@ DEPENDENCIES_TEST = $(addprefix $(DIRECTORY_TEST_DEP)/, $(SOURCES_TEST:.cpp:.d))
 INCLUDES = $(addprefix -I, include)
 SOURCES_TEST = test_main.cpp #test_init.cpp #test_main.cpp
 SOURCES = main.cpp
+
+PATH_LIB_MINILIBX = ./lib/minilibX
+DIR_BUILD_MINILIBX = build
+MINILIB_A = $(DIR_BUILD_MINILIBX)/libmlx42.a
+MINILIB_INCLUDES = $(addprefix -I, $(PATH_LIB_MINILIBX)/include)
 
 ################################################################################
 #                               BOLD COLORS                                    #
@@ -54,10 +60,10 @@ italic = \033[3m
 DIRS_TO_CREATE =
 
 all: DIRS_TO_CREATE = $(DIRECTORY_OBJ) $(DIRECTORY_DEP)
-all: dir $(NAME)
+all: minilib libs dir $(NAME)
 
 test: DIRS_TO_CREATE = $(DIRECTORY_TEST_OBJ) $(DIRECTORY_TEST_DEP)
-test: dir $(NAME)_test
+test: minilib libs dir $(NAME)_test
 
 minilib:
 	@if [ ! -d "./lib/minilibX/.git" ]; then \
@@ -69,22 +75,26 @@ minilib:
         echo "$(YELLOW)$(ligth)[ Warnig ]$(END) libft: already exists and is not an empty directory."; \
     fi
 
+libs:
+	@cmake -B build $(PATH_LIB_MINILIBX)
+	@cmake --build $(DIR_BUILD_MINILIBX) -j4
+
 $(NAME): $(OBJECTS)
-	$(CPP) $(CFLAGS) $(INCLUDES) $(OBJECTS) -o $(NAME)
+	$(CPP) $(CFLAGS) $(INCLUDES) $(MINILIB_INCLUDES) $(OBJECTS) -o $(NAME) $(LIB_FLAGS) $(MINILIB_A)
 	@echo "\n✅ ==== $(BLUE)$(ligth)Project $(NAME) compiled!$(END) ==== ✅"
 
 $(DIRECTORY_OBJ)/%.o:$(DIRECTORI_SOURCE)/%.cpp
 	@printf "  $(ligth)Compiling $(BLUE)$<$(END)      "
-	@$(CPP) $(CFLAGS) $(INCLUDES) -MMD -MF $(DIRECTORY_DEP)/$*.d -c $< -o $@
+	@$(CPP) $(CFLAGS) $(INCLUDES) $(MINILIB_INCLUDES) -MMD -MF $(DIRECTORY_DEP)/$*.d -c $< -o $@
 	@$(call progress,$<)
 
 $(NAME)_test: $(OBJECTS_TEST)
-	$(CPP) $(CFLAGS) $(INCLUDES) $(OBJECTS_TEST) -o $(NAME)_test
+	$(CPP) $(CFLAGS) $(INCLUDES) $(MINILIB_INCLUDES) $(OBJECTS_TEST) -o $(NAME)_test $(LIB_FLAGS) $(MINILIB_A)
 	@echo "\n✅ ==== $(BLUE)$(ligth)Project test compiled!$(END) ==== ✅"
 
 $(DIRECTORY_TEST_OBJ)/%.o:$(DIRECTORI_TEST)/%.cpp
 	@printf "  $(ligth)Compiling $(BLUE)$<$(END)      "
-	@$(CPP) $(CFLAGS) $(INCLUDES) -MMD -MF $(DIRECTORY_TEST_DEP)/$*.d -c $< -o $@
+	@$(CPP) $(CFLAGS) $(INCLUDES) $(MINILIB_INCLUDES) -MMD -MF $(DIRECTORY_TEST_DEP)/$*.d -c $< -o $@
 	@$(call progress,$<)
 
 dir:
@@ -112,6 +122,8 @@ clean:
 
 fclean: clean
 	$(RMV) $(NAME) $(NAME)_test
+	$(RMV) $(PATH_LIB_MINILIBX)
+	$(RMV) $(DIR_BUILD_MINILIBX)
 	echo "✅ ==== $(PURPLE)$(ligth)$(NAME) executable files and name cleaned!$(END) ==== ✅"
 
 define progress
@@ -131,6 +143,6 @@ endef
 -include $(DEPENDENCIES) $(DEPENDENCIES_TEST)
 
 re: fclean all
-.PHONY: all clean progress fclean test
+.PHONY: all clean progress fclean test dir minilib libs
 COMPILED_FILES=0
 .SILENT:

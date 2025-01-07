@@ -1,4 +1,3 @@
-#include <QApplication>
 #include <utils.tpp>
 
 int main(void)
