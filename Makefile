@@ -70,14 +70,14 @@ minilib:
         git clone git@github.com:codam-coding-college/MLX42.git ./lib/minilibX; \
         git submodule update --init --recursive; \
     elif [ -d "./lib/minilibX/.git" ]; then \
-        echo "$(YELLOW)$(ligth)[ Warnig ]$(END) libft: already exists and is a valid git repository."; \
+        echo "$(YELLOW)$(ligth)[ Warnig ]$(END) $@: already exists and is a valid git repository."; \
     else \
-        echo "$(YELLOW)$(ligth)[ Warnig ]$(END) libft: already exists and is not an empty directory."; \
+        echo "$(YELLOW)$(ligth)[ Warnig ]$(END) $@: already exists and is not an empty directory."; \
     fi
 
 libs:
-	@cmake -B build $(PATH_LIB_MINILIBX)
-	@cmake --build $(DIR_BUILD_MINILIBX) -j4
+	@cmake -B build $(PATH_LIB_MINILIBX) > /dev/null 2>&1
+	@cmake --build $(DIR_BUILD_MINILIBX) -j4 > /dev/null 2>&1
 
 $(NAME): $(OBJECTS)
 	$(CPP) $(CFLAGS) $(INCLUDES) $(MINILIB_INCLUDES) $(OBJECTS) -o $(NAME) $(LIB_FLAGS) $(MINILIB_A)
@@ -122,7 +122,6 @@ clean:
 
 fclean: clean
 	$(RMV) $(NAME) $(NAME)_test
-	$(RMV) $(PATH_LIB_MINILIBX)
 	$(RMV) $(DIR_BUILD_MINILIBX)
 	echo "✅ ==== $(PURPLE)$(ligth)$(NAME) executable files and name cleaned!$(END) ==== ✅"
 
