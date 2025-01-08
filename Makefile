@@ -26,7 +26,7 @@ DEPENDENCIES_TEST = $(addprefix $(DIRECTORY_TEST_DEP)/, $(SOURCES_TEST:.cpp:.d))
 
 INCLUDES = $(addprefix -I, include)
 SOURCES_TEST = test_main.cpp #test_init.cpp #test_main.cpp
-SOURCES = win/MlxWindow.cpp main.cpp
+SOURCES = win/MlxWindow.cpp win/Scene2D.cpp main.cpp
 
 PATH_LIB_MINILIBX = ./lib/minilibX
 DIR_BUILD_MINILIBX = build

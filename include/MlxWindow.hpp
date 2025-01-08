@@ -2,24 +2,26 @@
 #include <MLX42/MLX42.h>
 #include <AObject.hpp>
 #include <AScene.hpp>
+#include <utils.tpp>
 #include <memory>
 #include <string>
 #include <map>
 
 class MlxWindow
 {
-	private:
-		/* Init window */
+	protected:
+		/* variables */
 		mlx_t		*mlx;
 		int32_t		width;
 		int32_t		height;
 		const char *title;
-
+	private:
+		/* variables */
+		std::string currentSceneKey;
 		/* Scenes */
 		std::map<std::string, std::unique_ptr<AScene>> scenes;
 		/* Functions */
 		void createWindow(void);
-		void loop(void);
 		void destroy(void);
 	public:
 		/* Constructors */
@@ -27,5 +29,7 @@ class MlxWindow
 		~MlxWindow(void);
 
 		/* Functions */
-		void addScene(std::string name, AObject object);
+		void addScene(const std::string &name, std::unique_ptr<AScene> scene);
+		void switchToScene(const std::string& name);
+		void loop(void);
 };

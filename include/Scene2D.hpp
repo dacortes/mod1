@@ -1,11 +1,16 @@
 #pragma once
-#include <Scene2D.hpp>
+#include <AScene.hpp>
+#include <string>
+#include <memory>
+#include <map>
+
+// class AScene;
 
 class Scene2D: public AScene
 {
-	private:
-		int x, y;
 	public:
-		Scene2D(int x, int y): AScene(x, y);
+		Scene2D(uint32_t x, uint32_t y, uint32_t z): AScene(x, y, z){}
 		~Scene2D(void);
+
+		void initialize(mlx_t *ptr_mlx);
 };

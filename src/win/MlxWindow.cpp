@@ -1,5 +1,4 @@
 #include <MlxWindow.hpp>
-#include <utils.tpp>
 
 /* Private */
 
@@ -8,6 +7,7 @@ void MlxWindow::createWindow(void)
 	this->mlx = mlx_init(this->width, this->height, this->title, true);
 	if (!mlx)
 	{
+		//agregar error para el try
 		std::exit(error_message(mlx_errno, mlx_strerror(mlx_errno), ""));
 	}
 }
@@ -37,7 +37,15 @@ MlxWindow::~MlxWindow(void)
 	this->destroy();
 }
 
-void MlxWindow::addScene(std::string name, AObject object)
+void MlxWindow::addScene(const std::string &name, std::unique_ptr<AScene> scene)
 {
-	
+	scenes[name] = std::move(scene);
+}
+
+void MlxWindow::switchToScene(const std::string& name) {
+    if (scenes.find(name) != scenes.end())
+	{
+        currentSceneKey = name;
+        scenes[currentSceneKey]->initialize(this->mlx);
+    }
 }

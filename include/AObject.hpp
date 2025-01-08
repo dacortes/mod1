@@ -1,17 +1,19 @@
 #pragma once
-#include<AScene.hpp>
+#include <AScene.hpp>
+#include <string>
 
-class AObject: public AScene
+class AObject
 {
 	protected:
-		std::string getName(void) const;
+		int posScene_x, posScene_y, posScene_z;
 	public:
 		/* Constructors */
 		virtual ~AObject() = default;
 
 		/* Functions */
-		virtual void initialize() const = 0;
-		virtual void update() const = 0;
-		virtual void render() const = 0;
-		virtual void cleanUp() const = 0;
+		const std::string getName(void) const;
+		// virtual void initialize() const = 0;
+		// virtual void update() const = 0;
+		// virtual void render() const = 0;
+		// virtual void cleanUp() const = 0;
 };
