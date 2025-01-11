@@ -40,17 +40,15 @@ void Scene2D::initialize(mlx_t *ctx_mlx)
 
 void Scene2D::putScene(mlx_t *ctx_mlx)
 {
-	WinCen_y = ctx_mlx->height / 2;
-	WinCen_x = ctx_mlx->width / 2;
+	WinCen_y = (ctx_mlx->height / 2) - (this->image->height / 2);
+	WinCen_x = (ctx_mlx->width / 2) - (this->image->width / 2);
 
-	this->x = WinCen_x - (this->image->width / 2);
-	this->y = WinCen_y - (this->image->height / 2);
+	this->x += WinCen_x;
+	this->y += WinCen_y;
 
-	std::cout << "x: " << this->x << " width: " << image->width << std::endl;
-	std::cout << "y: " << this->y << std::endl;
-	for (uint32_t i = 0; i < image->width; ++i)
+	for (uint32_t x = 0; x < image->width; ++x)
 	{
 		for (uint32_t y = 0; y < image->height; ++y)
-			mlx_put_pixel(image, i, y, this->color);
+			mlx_put_pixel(image, x, y, this->color);
 	}
 }
