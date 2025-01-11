@@ -6,10 +6,7 @@ void MlxWindow::createWindow(void)
 {
 	this->mlx = mlx_init(this->width, this->height, this->title, true);
 	if (!mlx)
-	{
-		//agregar error para el try
-		std::exit(error_message(mlx_errno, mlx_strerror(mlx_errno), ""));
-	}
+		throw MlxWindow::MlxWindowException(std::string(mlx_strerror(mlx_errno), ""));
 }
 
 void MlxWindow::loop(void)

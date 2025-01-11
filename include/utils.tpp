@@ -35,6 +35,13 @@ enum e_code_errors
 };
 
 template <typename PrintT>
+std::string error_message(const std::string error, PrintT foo)
+{
+	std::cout << RED << "Error: " << END << error << foo << std::endl;
+	return ("");
+}
+
+template <typename PrintT>
 int	error_message(int	exitCode, const std::string error, PrintT foo)
 {
 	std::cout << RED << "Error: " << END << error << foo << std::endl;

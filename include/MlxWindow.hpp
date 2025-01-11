@@ -32,4 +32,17 @@ class MlxWindow
 		void addScene(const std::string &name, std::unique_ptr<AScene> scene);
 		void switchToScene(const std::string& name);
 		void loop(void);
+
+		class MlxWindowException: public std::exception
+		{
+			private:
+				std::string _msgError;
+			public:
+				MlxWindowException(std::string msgError): _msgError(msgError){}
+				virtual const char *what() const throw()
+				{
+					return (_msgError.c_str());
+				}
+				~MlxWindowException(void) throw(){}
+		};
 };
