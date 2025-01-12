@@ -19,8 +19,6 @@ class AScene
 		/* Constructor */
 		AScene(int x = 0, int y = 0, int z = 0):  x(x), y(y), z(z) {}
 
-		/* Functions */
-		void addObject(std::unique_ptr<AObject> object);
 	public:
 		/* Constructors */
 		virtual ~AScene() = default;
@@ -28,9 +26,7 @@ class AScene
 		// /* Functions */
 		virtual void initialize(mlx_t *ctx_mlx) = 0;
 		virtual void putScene(mlx_t *ctx_mlx) = 0;
-		// virtual void update() = 0;
-		// virtual void render() = 0;
-		// virtual void cleanUp() = 0;
+		virtual void addObject(const std::string &name, std::unique_ptr<AObject> object) = 0;
 
 		class SceneException: public std::exception
 		{

@@ -39,7 +39,8 @@ void MlxWindow::addScene(const std::string &name, std::unique_ptr<AScene> scene)
 	scenes[name] = std::move(scene);
 }
 
-void MlxWindow::switchToScene(const std::string& name) {
+void MlxWindow::switchToScene(const std::string& name)
+{
     if (scenes.find(name) != scenes.end())
 	{
         currentSceneKey = name;

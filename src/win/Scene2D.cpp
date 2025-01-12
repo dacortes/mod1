@@ -1,6 +1,4 @@
 #include <Scene2D.hpp>
-#include <iostream>
-#include <utils.tpp>
 
 /* Constructors */
 Scene2D::~Scene2D(void)
@@ -51,4 +49,9 @@ void Scene2D::putScene(mlx_t *ctx_mlx)
 		for (uint32_t y = 0; y < image->height; ++y)
 			mlx_put_pixel(image, x, y, this->color);
 	}
+}
+
+void Scene2D::addObject(const std::string &name, std::unique_ptr<AObject> object)
+{
+	objects[name] = std::move(object);
 }

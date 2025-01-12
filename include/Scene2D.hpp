@@ -1,10 +1,10 @@
 #pragma once
 #include <AScene.hpp>
+#include <utils.tpp>
+#include <iostream>
 #include <string>
 #include <memory>
 #include <map>
-
-// class AScene;
 
 class Scene2D: public AScene
 {
@@ -18,4 +18,5 @@ class Scene2D: public AScene
 
 		void initialize(mlx_t *ctx_mlx);
 		void putScene(mlx_t *ctx_mlx);
+		void addObject(const std::string &name, std::unique_ptr<AObject> object);
 };

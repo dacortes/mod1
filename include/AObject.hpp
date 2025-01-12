@@ -11,7 +11,7 @@ class AObject
 		virtual ~AObject() = default;
 
 		/* Functions */
-		const std::string getName(void) const;
+		virtual const std::string getName(void) const = 0;
 		// virtual void initialize() const = 0;
 		// virtual void update() const = 0;
 		// virtual void render() const = 0;

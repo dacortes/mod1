@@ -9,7 +9,7 @@ int main(void)
     try
     {
       MlxWindow app("foo", 500, 500);
-      Scene2D *fooScene = new Scene2D(-100, 0, 20, 20, 0xFFFFFFAA);
+      Scene2D *fooScene = new Scene2D(0, 0, 20, 20, 0xFFFFFFAA);
       Scene foo(fooScene);
       app.addScene("foo", std::move(foo));
       app.switchToScene("foo");
